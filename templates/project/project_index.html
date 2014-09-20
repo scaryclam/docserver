@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for project in project_list %}
+    {{ project.name }}
+{% empty %}
+    No projects here
+{% endfor %}
+{% endblock %}
+
