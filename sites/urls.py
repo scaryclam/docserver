@@ -8,4 +8,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^project/', include('sites.project.urls')),
+    url(r'^github/', include('sites.github.urls')),
 )
