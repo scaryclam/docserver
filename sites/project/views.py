@@ -31,7 +31,6 @@ class ProjectCreateView(FormView):
         new_project = project_service.create_project(
             form.cleaned_data['project_name'], repo_obj)
         docbuilder_service.create_doc_structure(new_project)
-        docbuilder_service.trigger_build(new_project)
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
