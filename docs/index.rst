@@ -6,6 +6,8 @@
 Welcome to Docserver's documentation!
 =====================================
 
+Foo
+
 Contents:
 
 .. toctree::

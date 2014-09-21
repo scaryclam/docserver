@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="{% url 'project-create' %}" method="post" name="create-project-form" id="create-project-form">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Submit</button>
+</form>
+<div>
+    <a href="{% url 'project-index' %}">Go back to Project</a>
+<div>
+{% endblock %}
+

@@ -3,8 +3,11 @@ from django.db import models
 
 class GithubConf(models.Model):
     repo_uri = models.CharField(max_length=355)
+    repo_owner = models.CharField(max_length=255)
     repo_name = models.CharField(max_length=255, blank=True, null=True)
     repo_key = models.CharField(max_length=255, blank=True, null=True)
+    document_root = models.CharField(
+        max_length=255, default="docs", null=True, blank=True)
 
 
 class DocumentBuild(models.Model):
