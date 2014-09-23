@@ -43,8 +43,8 @@ MIDDLEWARE_CLASSES = (
 )
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend'
-    'sites.github.GithubOAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'sites.auth.backends.GithubOAuthBackend',
 )
 
 TEMPLATE_DIRS = (

@@ -12,6 +12,13 @@ class ProjectIndexView(ListView):
     template_name = 'project/project_index.html'
 
 
+    def get(self, request):
+        import ipdb
+        ipdb.set_trace()
+
+        return super(ProjectIndexView, self).get(request)
+
+
 class ProjectView(View):
     def get(self, request, *args, **kwargs):
         project = ProjectService().get_project_by_owner_and_name(kwargs['repo_owner'],
