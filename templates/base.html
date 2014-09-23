@@ -3,8 +3,8 @@
 <title>Projects</title>
 </head>
 <body>
-{% if request.user %}
-<div>Hello {{ request.user }}</div>
+{% if request.user.is_authenticated %}
+<div>Hello {{ request.user.username }}</div>
 {% else %}
 <div>Hello Anon</div>
 {% endif %}
