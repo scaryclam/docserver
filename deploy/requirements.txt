@@ -1,0 +1,9 @@
+django
+requests
+sphinx
+github2
+ipython
+ipdb
+django-extensions
+Werkzeug
+

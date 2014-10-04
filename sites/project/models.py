@@ -18,6 +18,5 @@ class DocumentBuild(models.Model):
 class Project(models.Model):
     name = models.CharField(max_length=255)
     github_conf = models.ForeignKey(GithubConf)
-    document_build = models.ManyToManyField(DocumentBuild, 
+    document_build = models.ManyToManyField(DocumentBuild,
                                             related_name="document_builds")
-

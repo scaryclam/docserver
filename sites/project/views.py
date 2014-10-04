@@ -1,5 +1,6 @@
 from django.views.generic import ListView, View, FormView
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.template.response import SimpleTemplateResponse
 from django.core.urlresolvers import reverse
 
 from sites.project.services import ProjectService
@@ -16,7 +17,19 @@ class ProjectView(View):
     def get(self, request, *args, **kwargs):
         project = ProjectService().get_project_by_owner_and_name(kwargs['repo_owner'],
                                                                  kwargs['repo_name'])
-        return HttpResponse("This is a project")
+        return HttpResponse("This is a project config page!")
+
+
+class ProjectDocsView(View):
+    def get(self, request, *args, **kwargs):
+        service = ProjectService()
+        project = service.get_project_by_owner_and_name(kwargs['repo_owner'],
+                                                        kwargs['repo_name'])
+        document = service.get_document_from_path(project, kwargs['path'])
+        if document is None:
+            raise Http404
+
+        return SimpleTemplateResponse(document)
 
 
 class ProjectCreateView(FormView):
@@ -35,4 +48,3 @@ class ProjectCreateView(FormView):
 
     def get_success_url(self):
         return reverse('project-index')
-

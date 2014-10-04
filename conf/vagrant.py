@@ -47,11 +47,8 @@ AUTHENTICATION_BACKENDS = (
     'sites.auth.backends.GithubOAuthBackend',
 )
 
-DOCUMENT_ROOT = os.path.join(BASE_DIR, 'document_root')
-
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
-    DOCUMENT_ROOT,
 )
 
 ROOT_URLCONF = 'sites.urls'
@@ -90,3 +87,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
 )
+
+DOCUMENT_ROOT = os.path.join(BASE_DIR, '..', 'document_root')

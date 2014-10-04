@@ -7,7 +7,7 @@ from sites.project.models import Project, GithubConf
 
 class ProjectService(object):
     def create_project(self, project_name, repo_obj):
-        new_project = Project.objects.create(name=project_name, 
+        new_project = Project.objects.create(name=project_name,
                                              github_conf=repo_obj)
         return new_project
 
@@ -31,3 +31,9 @@ class ProjectService(object):
                                       github_conf__repo_name=repo_name)
         return project
 
+    def get_document_from_path(self, project, path):
+        docs_base = os.path.join(project.github_conf.repo_owner,
+                                 project.github_conf.repo_name)
+        doc_root = project.github_conf.document_root
+        document_path = os.path.join(docs_base, doc_root, '_build/html/', path)
+        return document_path

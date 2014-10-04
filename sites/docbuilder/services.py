@@ -8,7 +8,7 @@ class DocBuilderService(object):
     def trigger_build(self, project_settings):
         generate(project_settings)
 
-    def get_project_settings(self, project):
+    def get_project_settings(self, project, doc_build_dir):
         project_settings = {
             'path': doc_build_dir,
             'version': '0.1',
@@ -42,13 +42,13 @@ class DocBuilderService(object):
         """
         base_git_dir = settings.GIT_CLONE_DIR
         doc_build_dir = os.path.join(
-            base_git_dir, 
+            base_git_dir,
             project.github_conf.repo_owner,
             project.github_conf.repo_name,
             project.github_conf.document_root)
         if os.path.exists(os.path.join(base_git_dir, 'conf.py')):
             return
         print "Creating"
-        project_settings = self.get_project_settings(project)
+        project_settings = self.get_project_settings(project, doc_build_dir)
         self.trigger_build(project_settings)
 

@@ -1,0 +1,37 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant::Config.run do |config|
+  config.vm.box = "docserver"
+  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+
+  config.vm.network :hostonly, "33.33.33.10"
+
+  config.vm.forward_port 8000, 8888
+  config.vm.forward_port 8800, 6767
+  config.vm.forward_port 8080, 7777
+  config.vm.forward_port 5432, 2345
+
+  config.vm.share_folder "docserver", "/var/www/docserver/", ".."
+
+  # SALT STACK PROVISIONING
+  ## For masterless, mount your salt file root
+  config.vm.share_folder "salt_file_root", "/srv/salt", "../deploy/docserver/salt/vagrant"
+  ## Use all the defaults:
+  config.vm.provision :salt do |salt|
+    salt.run_highstate = true
+
+    ## Optional Settings:
+    #salt.minion_config = "../deploy/local/salt/vagrant/minion.conf"
+    salt.verbose = true
+    # salt.temp_config_dir = "/existing/folder/on/basebox/"
+    # salt.salt_install_type = "git"
+    # salt.salt_install_args = "develop"
+
+    ## If you have a remote master setup, you can add
+    ## your preseeded minion key
+    #salt.minion_key = "salt/key/minion.pem"
+    #salt.minion_pub = "salt/key/minion.pub"
+  end
+end
+
