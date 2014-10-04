@@ -8,3 +8,11 @@ class GithubService(object):
     def process_webhook_payload(self):
         pass
 
+    def clone_repo(self, repo_url):
+        pass
+
+    def update_repo(self, repo_url, branch):
+        pass
+
+    def login_user(self, username):
+        pass
