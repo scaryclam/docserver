@@ -2,7 +2,12 @@
 {% block content %}
 <form id="login-form" name="login-form" action="." method="post">
 {% csrf_token %}
-{{ form.as_p }}
+<p>{{ form.username.label }} {{ form.username }}</p>
+<p>{{ form.password.label }} {{ form.password }}</p>
+{{ form.errors }}
+{% if form.errors.two_factor %}
+<p>{{ form.two_factor_code.label }} {{ form.two_factor_code }}</p>
+{% endif %}
 <button type="submit">Login</button>
 </form>
 {% endblock %}

@@ -6,11 +6,23 @@ from django.core.urlresolvers import reverse
 from sites.project.services import ProjectService
 from sites.project.forms import ProjectForm
 from sites.docbuilder.services import DocBuilderService
+from sites.github.services import GithubService
 
 
 class ProjectIndexView(ListView):
     model = ProjectService().get_project_model()
     template_name = 'project/project_index.html'
+
+    def get_context_data(self):
+        context = super(ProjectIndexView, self).get_context_data()
+        service = GithubService()
+
+        user_repos = service.get_user_repos(self.request.user)
+        org_repos = service.get_org_repos(self.request.user)
+
+        context['user_repos'] = user_repos
+        context['org_repos'] = org_repos
+        return context
 
 
 class ProjectView(View):
