@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your repositories</h2>
+{% for repo in user_repos %}
+<form action="{% url 'project-create' %}" method="post">
+    {% csrf_token %}
+    {% for key,val in repo.iteritems %}
+    <input type="hidden" value="{{ val }}" name="{{ key }}" />
+    {% endfor %}
+    <p>{{ repo.full_name }} <button type="submit">Add</button></p>
+</form>
+{% empty %}
+    No repositories here
+{% endfor %}
+
+<h2>Your Organisations Repositories</h2>
+{% for repo in org_repos %}
+    <p>{{ repo.description }}</p>
+{% empty %}
+    No repositories here
+{% endfor %}
+{% endblock %}

@@ -15,20 +15,13 @@ class ProjectIndexView(ListView):
 
     def get_context_data(self):
         context = super(ProjectIndexView, self).get_context_data()
-        service = GithubService()
-
-        user_repos = service.get_user_repos(self.request.user)
-        org_repos = service.get_org_repos(self.request.user)
-
-        context['user_repos'] = user_repos
-        context['org_repos'] = org_repos
         return context
 
 
 class ProjectView(View):
     def get(self, request, *args, **kwargs):
-        project = ProjectService().get_project_by_owner_and_name(kwargs['repo_owner'],
-                                                                 kwargs['repo_name'])
+        project = ProjectService().get_project_by_owner_and_name(
+            kwargs['repo_owner'], kwargs['repo_name'])
         return HttpResponse("This is a project config page!")
 
 
@@ -44,13 +37,14 @@ class ProjectDocsView(View):
         return SimpleTemplateResponse(document)
 
 
-class ProjectCreateView(FormView):
-    form_class = ProjectForm
+class ProjectCreateView(View):
     template_name = 'project/project_create.html'
 
-    def form_valid(self, form, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         project_service = ProjectService()
         docbuilder_service = DocBuilderService()
+        import ipdb
+        ipdb.set_trace()
         repo_obj = project_service.create_github_conf(
             form.cleaned_data['repo_uri'])
         new_project = project_service.create_project(
@@ -60,3 +54,23 @@ class ProjectCreateView(FormView):
 
     def get_success_url(self):
         return reverse('project-index')
+
+
+class RepositoriesListView(ListView):
+    model = ProjectService().get_project_model()
+    template_name = 'project/repo_list.html'
+
+    def get_context_data(self):
+        context = super(RepositoriesListView, self).get_context_data()
+        service = GithubService()
+
+        user_repos = service.get_user_repos(self.request.user)
+        org_repos = service.get_org_repos(self.request.user)
+
+        context['user_repos'] = user_repos
+        context['org_repos'] = org_repos
+        for repo in org_repos:
+            project = self.model.objects.filter(github_conf__repo_name=repo['full_name'])
+            if project:
+                context['org_repos'].pop(repo['full_name'])
+        return context

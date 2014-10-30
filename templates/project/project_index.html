@@ -1,21 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2>Your repositories</h2>
-{% for repo in user_repos %}
-    <p>{{ repo.description }}</p>
+{% for project in projects %}
+    <p>{{ project }}</p>
 {% empty %}
     No projects here
 {% endfor %}
-
-<h2>Your Organisations Repositories</h2>
-{% for repo in org_repos %}
-    <p>{{ repo.description }}</p>
-{% empty %}
-    No projects here
-{% endfor %}
-
 
 <div>
-    <a href="{% url 'project-create' %}">Create Project</a>
+    <a href="{% url 'repo-index' %}">Add Project from Repository</a>
 </div>
 {% endblock %}
