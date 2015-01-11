@@ -1,14 +1,41 @@
-<html>
-<head>
-<title>Projects</title>
-</head>
-<body>
-{% if request.user.is_authenticated %}
-<div>Hello {{ request.user.username }}</div>
-{% else %}
-<div>Hello Anon</div>
-{% endif %}
-{% block content %}
-{% endblock %}
-</body>
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="{{ active_language.0|default:"en-gb" }}" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="{{ active_language.0|default:"en-gb" }}" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="{{ active_language.0|default:"en-gb" }}" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="{{ active_language.0|default:"en-gb" }}" class="no-js"> <!--<![endif]-->
+    <head>
+        <title>doclab | {% block title %}{% endblock %}</title>
+
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <meta name="created" content="{% now "jS M Y h:i" %}" />
+        <meta name="description" content="{% block description %}{% endblock %}" />
+        <meta name="keywords" content="{% block keywords %}{% endblock %}" />
+        <meta name="viewport" content="{% block viewport %}width=device-width"{% endblock %}>
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        {% block favicon %}
+            <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" />
+        {% endblock %}
+        {% block mainstyles %}
+            {% block styles %}
+                <link rel="stylesheet" type="text/css" href="{% static "css/styles.css" %}" />
+            {% endblock %}
+        {% endblock %}
+
+        {# Additional CSS - specific to certain pages #}
+        {% block extrastyles %}{% endblock %}
+
+        {% block extrahead %}{% endblock %}
+    </head>
+
+
+    <body id="{% block body_id %}default{% endblock %}" class="{% block body_class %}default{% endblock %}">
+        {% block layout %}
+        {% endblock %}
+    </body>
 </html>
