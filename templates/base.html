@@ -36,6 +36,26 @@
 
     <body id="{% block body_id %}default{% endblock %}" class="{% block body_class %}default{% endblock %}">
         {% block layout %}
+                <div class="container">
+                    {% if request.user.is_authenticated %}
+                    <span class="icon-user"> {{ request.user.username }}</span>
+                    <a href="." alt="settings" title="Account Settings">
+                        <span class="icon-cog">
+                        </span>
+                    </a>
+                    <a href="{% url 'logout' %}" alt="logout" title="Sign Out">
+                        <span class="icon-exit">
+                        </span>
+                    </a>
+                    {% else %}
+                        <span>Hello Anon</span>
+                        <a href="{% url 'user-login' %}" alt="login" title="Sign in">
+                            Sign In
+                            <span class="icon-enter">
+                            </span>
+                        </a>
+                    {% endif %}
+                </div>
         {% endblock %}
     </body>
 </html>

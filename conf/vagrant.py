@@ -30,6 +30,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_extensions',
     'sites.project',
+    'sites.user',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -94,3 +95,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 DOCUMENT_ROOT = os.path.join(BASE_DIR, '..', 'document_root')
+
+AUTH_USER_MODEL = 'user.User'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)

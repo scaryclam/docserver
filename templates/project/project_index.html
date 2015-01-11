@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-{% for project in project_list %}
-    <a href="{% url 'project' repo_owner=project.github_conf.repo_owner repo_name=project.github_conf.repo_name %}">{{ project.name }}</a>
+<h2>Your repositories</h2>
+{% for project in projects %}
+    <p>{{ project }}</p>
 {% empty %}
     No projects here
 {% endfor %}
 
 <div>
-    <a href="{% url 'project-create' %}">Create Project</a>
-<div>
+    <a href="{% url 'repo-index' %}">Add Project from Repository</a>
+</div>
 {% endblock %}
-

@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^project/', include('sites.project.urls')),
     url(r'^github/', include('sites.github.urls')),
     url(r'^user/', include('sites.user.urls')),
+    url(r'^logout/', views.LogoutView.as_view(), name='logout'),
 )
 
 from django.conf.urls.static import static
